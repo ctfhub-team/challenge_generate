@@ -1,5 +1,9 @@
 BUILD_ENV := CGO_ENABLED=0
-LDFLAGS=-v -a -ldflags '-s -w' -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
+export BUILD_TIME=`date +%s`
+export GIT_COMMIT_ID=${DRONE_COMMIT_SHA:0:8}
+export VERSION=${DRONE_TAG}
+VAR_INJECT=-X util.GitCommitId=${GIT_COMMIT_ID} -X util.BuildTime=${BUILD_TIME} -X util.Version=${DRONE_TAG}
+LDFLAGS=-v -a -ldflags '-s -w ${VAR_INJECT}' -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 
 TARGET_EXEC := cg
 
