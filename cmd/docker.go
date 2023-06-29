@@ -19,8 +19,8 @@ func init() {
 
 var DockerCmd = &cobra.Command{
 	Use:     "docker",
-	Short:   "测试已完成的镜像",
-	Long:    `测试已完成的镜像`,
+	Short:   "测试已完成的环境",
+	Long:    `测试已完成的环境`,
 	Aliases: []string{"d"},
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()

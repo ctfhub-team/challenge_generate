@@ -11,9 +11,9 @@ var RootCmd = &cobra.Command{
 	Use:   "cg",
 	Short: "cg 是用于创建CTF题目环境模板的自助式生成工具",
 	Long: `
-Challenge Generate (cg) 是用于创建CTF题目环境模板的自助式生成工具.
+CTF Generate (cg) 是用于创建CTF题目环境模板的自助式生成工具.
 
-https://www.ctfhub.com/            Developed by: L1n3@CTFHub Team
+https://www.ctfhub.com/      Developed by: L1n3@CTFHub Team
 `,
 }
 
