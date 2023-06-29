@@ -1,0 +1,10 @@
+version: "3"
+services:
+  challenge:
+    build: .
+    image: test
+    ports:
+      -  80:80
+    environment:
+      - FLAG=ctfhub{test_flag}
+      - DOMAIN=test.sandbox.ctfhub.com

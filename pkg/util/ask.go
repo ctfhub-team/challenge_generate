@@ -23,7 +23,18 @@ func HandleErr(e error) {
 	}
 }
 
-func SelectOne(Message string, Options []string) string {
+func SelectOne(Message string, Options map[string]string) string {
+	var answer string
+	prompt := &survey.Select{
+		Message: Message,
+		Options: GetMapKey(Options),
+	}
+	err := survey.AskOne(prompt, &answer)
+	HandleErr(err)
+	return Options[answer]
+}
+
+func SelectArray(Message string, Options []string) string {
 	var answer string
 	prompt := &survey.Select{
 		Message: Message,
