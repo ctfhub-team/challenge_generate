@@ -13,10 +13,12 @@ Usage:
   cg [command]
 
 Available Commands:
+  check        检查当前题目目录及内容是否符合规范
   completion   Generate the autocompletion script for the specified shell
-  docker       d 测试已完成的镜像
+  config       设置 cg 的配置文件
+  docker       docker相关操作
   help         Help about any command
-  new          n 创建新的题目模板
+  new          创建新的题目模板
   version      输出 cg 的版本和更新时间
 
 Flags:
@@ -39,8 +41,8 @@ Aliases:
   new, n
 
 Available Commands:
-  file         f 从预定义文件创建
-  wizard       w 使用向导创建
+  file         从预定义文件创建
+  wizard       使用向导创建
 
 Flags:
   -h, --help   help for new
@@ -63,14 +65,37 @@ Aliases:
   docker, d
 
 Available Commands:
-  auto         a 依次执行 Stop -> Build -> Run -> Bash
+  auto         依次执行 Stop -> Build -> Run -> Bash
   bash         执行bash进入容器
-  build        b 构建镜像
-  run          r 启动镜像
-  stop         s 停止镜像
+  build        构建镜像
+  log          查看容器日志
+  run          运行镜像
+  save         导出容器tar包
+  stop         停止镜像
 
 Flags:
   -h, --help   help for docker
 
 Use "cg docker [command] --help" for more information about a command.
+```
+
+## 环境目录结构
+
+```
+enviroment
+    src/
+    files/
+        flag.sh
+        db.sql
+        start.sh
+    Dockerfile
+    docker-compose.yml
+writeup/
+    images/
+    readme.md
+    writeup.pdf
+    exp.py
+    requirement.txt
+attachment.zip
+meta.yml
 ```
