@@ -36,8 +36,11 @@ write_flag_in_fs() {
 }
 
 write_flag_in_db() {
-    if [ -z "$1" ]; then db_name="web" else db_name="$1" fi
-    if [ -z "$2" ]; then db_table="flag" else db_table="$2" fi
-    if [ -z "$3" ]; then db_column="flag" else db_column="$3" fi
-    mysql -uroot -proot -e "USE ${db_name};update ${db_table} set ${db_column}='${FLAG}';"
+    local db_name="${1:-web}"
+    local db_table="${2:-flag}"
+    local db_column="${3:-flag}"
+    echo mysql -uroot -proot -e "update ${db_name}.${db_table} set ${db_column}='${FLAG}';"
 }
+
+export FLAG=not_flag
+FLAG=not_flag
