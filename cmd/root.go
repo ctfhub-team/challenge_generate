@@ -13,7 +13,7 @@ var RootCmd = &cobra.Command{
 	Long: `
 CTF Generate (cg) 是用于创建CTF题目环境模板的自助式生成工具.
 
-https://www.ctfhub.com/      Developed by: L1n3@CTFHub Team
+                                         Developed by: L1n3
 `,
 }
 
