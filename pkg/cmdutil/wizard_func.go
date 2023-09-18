@@ -18,6 +18,8 @@ func GetServicePort(challengeType string) string {
 		return "10000"
 	case "misc":
 		return "10000"
+	case "web_access":
+		return "10800"
 	default:
 		return "9999"
 	}
@@ -43,12 +45,13 @@ func GenerateDockerFile(challengeInfo map[string]string) {
 			dockerfile += "COPY ./src/ /app/\n"
 		}
 	case "pwn":
-		dockerfile += "COPY ./src/pwn /pwn/pwn\n"
+		dockerfile += "COPY ./src/pwn /pwn\n"
 	case "misc":
 		dockerfile += "COPY ./src/ /app/\n"
 	}
+	dockerfile += "\n"
 	dockerfile += "EXPOSE " + GetServicePort(challengeInfo["type"]) + "\n"
-	util.WriteFile("enviroment/Dockerfile", global.FileTemplate["Dockerfile"], 0755)
+	util.WriteFile("enviroment/Dockerfile", dockerfile, 0644)
 }
 
 /**
@@ -56,16 +59,23 @@ func GenerateDockerFile(challengeInfo map[string]string) {
  * @param challengeInfo 题目信息
  */
 func GenerateDockerCompose(challengeInfo map[string]string) {
-	servicePort := GetServicePort(challengeInfo["type"])
+	servicePort := ""
+	accessPort := ""
+	servicePort = GetServicePort(challengeInfo["type"])
+	if challengeInfo["type"] == "web" {
+		accessPort = GetServicePort("web_access")
+	} else {
+		accessPort = servicePort
+	}
 	dockerCompose := global.DockerCompsoe{}
 	_ = yaml.Unmarshal(tpl.DockerCompose, &dockerCompose)
 	// 修改内容
 	dockerCompose.Version = 3
 	dockerCompose.Services.Challenge.Image = challengeInfo["challenge_name"]
-	dockerCompose.Services.Challenge.Ports = []string{servicePort + ":" + servicePort}
+	dockerCompose.Services.Challenge.Ports = []string{accessPort + ":" + servicePort}
 	dockerCompose.Services.Challenge.Enviroment = []string{
 		"FLAG=ctfhub{test_flag}",
-		"FLAG_PATH=test.sandbox.ctfhub.com",
+		"DOMAIN=test.sandbox.ctfhub.com",
 	}
 	// 写入文件
 	writeData, _ := yaml.Marshal(&dockerCompose)
