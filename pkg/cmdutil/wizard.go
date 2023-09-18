@@ -20,8 +20,8 @@ import (
  */
 func Generate(challengeInfo map[string]string) {
 	// flag位置确认
-	challengeInfo["need_flag"] = util.SelectArray("是否需要单独处理flag位置", []string{"否", "是"})
-	challengeInfo["need_start"] = util.SelectArray("是否需要单独处理部分服务启动", []string{"否", "是"})
+	challengeInfo["need_flag"] = util.SelectArray("是否需要单独处理flag位置(flag.sh)", []string{"否", "是"})
+	challengeInfo["need_start"] = util.SelectArray("是否需要单独处理部分服务启动(start.sh)", []string{"否", "是"})
 	// 题目等级选择
 	challengeInfo["level"] = util.SelectArray("此题目难度为", global.Level)
 
@@ -109,7 +109,7 @@ func Wizard() {
 		Cyan := color.FgCyan.Render
 		fmt.Println("镜像源地址：" + Cyan(config.RegistryUrl))
 		fmt.Println()
-		challengeInfo["base_registry"] = config.RegistryUrl
+		challengeInfo["base_registry"] = config.RegistryUrl + global.RegistryNameSpace + "/"
 	}
 
 	challengeInfo["type"] = util.SelectOne("请选择您要创建的题目类型", global.ChallengeType)
