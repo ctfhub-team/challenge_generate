@@ -2,6 +2,7 @@ package cmdutil
 
 import (
 	"bytes"
+	"fmt"
 	"os/exec"
 )
 
@@ -37,4 +38,13 @@ func Stop() {
 
 func Bash() {
 	exec_cmd("docker-compose exec challenge bash")
+}
+
+func Log() {
+	exec_cmd("docker-compose logs")
+}
+
+func Save() {
+	fmt.Printf("TODO")
+	// exec_cmd("docker-compose save")
 }
