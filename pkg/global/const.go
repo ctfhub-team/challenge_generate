@@ -1,7 +1,7 @@
 package global
 
 // 镜像源配置
-var RegistryNameSpace = "ctfhub"
+var RegistryNameSpace = "ctfhub_base"
 var Registry = map[string]string{
 	"AliYun":    "https://registry.cn-hangzhou.aliyuncs.com/",
 	"CTFHub":    "",
@@ -10,29 +10,29 @@ var Registry = map[string]string{
 
 // 题目类型
 var ChallengeType = map[string]string{
-	"Web":    "web",
-	"Pwn":    "pwn",
-	"Socket": "misc",
+	"Web": "web",
+	"Pwn": "pwn",
+	// "Socket": "misc",
 }
 
 // 语言类型
 var Language = map[string]string{
-	"PHP":    "php",
-	"HTML":   "html",
-	"Python": "python",
-	"NodeJS": "nodejs",
-	"Java":   "java",
-	"Ruby":   "ruby",
+	"PHP":  "php",
+	"HTML": "html",
+	// "Python": "python",
+	// "NodeJS": "nodejs",
+	// "Java":   "java",
+	// "Ruby":   "ruby",
 }
 
 var PHPVersion = []string{
 	"5.6", "7.4", "8.0",
 }
 var PythonVersion = []string{
-	"2.7", "3.6", "3.7", "3.8", "3.9",
+	"2.7", "3.6",
 }
 var NodeJSVersion = []string{
-	"12", "14", "15",
+	"12", "14", "16", "18",
 }
 var JavaVersion = []string{
 	"8", "11", "15",
@@ -44,7 +44,7 @@ var RubyVersion = []string{
 var DBType = map[string]string{
 	"无/SQLite": "",
 	"MySQL":    "mysql",
-	"MongoDB":  "mongodb",
+	// "MongoDB":  "mongodb",
 }
 
 // PHP Web服务器
@@ -66,9 +66,9 @@ var JavaServer = map[string]string{
 
 // Pwn架构
 var PwnArch = map[string]string{
-	"x86/x64 Binary":        "",
-	"x86/x64 Kernel":        "kernel",
-	"arm/arm64/mips/mips64": "qemu",
+	"x86/x64 Binary": "binary",
+	// "x86/x64 Kernel":        "kernel",
+	// "arm/arm64/mips/mips64": "qemu",
 }
 
 // Pwn启动方式
