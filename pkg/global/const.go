@@ -3,9 +3,9 @@ package global
 // 镜像源配置
 var RegistryNameSpace = "ctfhub_base"
 var Registry = map[string]string{
-	"AliYun":    "https://registry.cn-hangzhou.aliyuncs.com/",
-	"CTFHub":    "",
-	"DockerHub": "https://hub.docker.com/",
+	"AliYun": "registry.cn-hangzhou.aliyuncs.com/",
+	// "CTFHub":    "registry.cn-hangzhou.aliyuncs.com/",
+	"DockerHub": "",
 }
 
 // 题目类型
