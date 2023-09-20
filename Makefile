@@ -2,14 +2,14 @@ BUILD_ENV := CGO_ENABLED=0
 export BUILD_TIME=`date +%Y-%m-%d`
 export GIT_COMMIT_ID=${DRONE_COMMIT_SHA:0:8}
 export VERSION=${DRONE_TAG}
-VAR_INJECT=-X util.GitCommitId=${GIT_COMMIT_ID} -X util.BuildTime=${BUILD_TIME} -X util.Version=${DRONE_TAG}
-LDFLAGS=-v -a -ldflags '-s -w ${VAR_INJECT}' -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
+VAR_INJECT=-X 'util.GitCommitId=${GIT_COMMIT_ID}' -X 'util.BuildTime=${BUILD_TIME}' -X 'util.Version=${DRONE_TAG}'
+LDFLAGS=-v -a -ldflags "-s -w ${VAR_INJECT}" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
 
 TARGET_EXEC := cg
 
 .PHONY: all setup build-linux build-osx
 
-all: setup build-linux build-osx 
+all: setup build-linux build-osx finish
 
 setup:
 	mkdir -p build
@@ -20,4 +20,9 @@ build-osx:
 
 build-linux:
 	${BUILD_ENV} GOARCH=amd64 GOOS=linux go build ${LDFLAGS} -o build/${TARGET_EXEC}_linux_amd64
-	${BUILD_ENV} GOARCH=arm64 GOOS=linux go build ${LDFLAGS} -o build/${TARGET_EXEC}_linux_arm64
+
+clean:
+	rm -rf build
+
+finish:
+	cp usage.md build/ && cd build && zip -r cg_${VERSION}.zip ./
