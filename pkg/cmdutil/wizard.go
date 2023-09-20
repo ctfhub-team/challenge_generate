@@ -106,8 +106,7 @@ func Wizard() {
 	} else {
 		_ = yaml.Unmarshal(data, &config)
 		fmt.Println("检测到配置文件，将使用配置文件中的镜像源")
-		Cyan := color.FgCyan.Render
-		fmt.Println("镜像源地址：" + Cyan(config.RegistryUrl+global.RegistryNameSpace+"/"))
+		fmt.Println("镜像源地址：" + color.FgCyan.Render(config.RegistryUrl+global.RegistryNameSpace+"/"))
 		fmt.Println()
 		challengeInfo["base_registry"] = config.RegistryUrl + global.RegistryNameSpace + "/"
 	}
@@ -122,6 +121,11 @@ func Wizard() {
 	case "misc":
 		challengeInfo = WizardSocket(challengeInfo)
 	}
+	color.Cyan.Println("题目名称应当全为小写，如为中文名称则使用拼音，格式如下")
+	color.Cyan.Println("challenge_年份_所属比赛简写_分类_题目名称")
+	fmt.Println("")
+	color.Cyan.Println("例1 2021年 N1CTF Web类 babysqli，则为 challenge_2021_n1ctf_web_baysqli")
+	color.Cyan.Println("例2 2019年 SCTF Pwn类 babyheap，则为 challenge_2019_sctf_pwn_bayheap")
 	// 不断获取输入直到有内容
 	for {
 		challengeInfo["challenge_name"] = util.InputLine("请输入您要创建的题目镜像名称")
