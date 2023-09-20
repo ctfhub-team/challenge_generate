@@ -14,6 +14,8 @@ func exec_cmd(command string) (string, string, error) {
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 	err := cmd.Run()
+	fmt.Print(stderr.String())
+	fmt.Print(stdout.String())
 	return stdout.String(), stderr.String(), err
 }
 
