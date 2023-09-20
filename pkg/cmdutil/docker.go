@@ -91,7 +91,7 @@ func Stop() {
 }
 
 func Bash() {
-	exec_cmd_attach("docker-compose exec challenge sh")
+	exec_cmd_attach("docker-compose exec challenge bash")
 }
 
 func Log() {
