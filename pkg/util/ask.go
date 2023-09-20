@@ -3,9 +3,11 @@ package util
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
+	"golang.org/x/exp/maps"
 )
 
 var errorMessages = map[string]string{
@@ -25,9 +27,11 @@ func HandleErr(e error) {
 
 func SelectOne(Message string, Options map[string]string) string {
 	var answer string
+	var keys = maps.Keys(Options)
+	sort.Strings(keys)
 	prompt := &survey.Select{
 		Message: Message,
-		Options: GetMapKey(Options),
+		Options: keys,
 	}
 	err := survey.AskOne(prompt, &answer)
 	HandleErr(err)
