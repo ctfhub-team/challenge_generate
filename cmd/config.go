@@ -11,7 +11,7 @@ func init() {
 	RootCmd.AddCommand(ConfigCmd)
 	ConfigCmd.AddCommand(ConfigSetCmd)
 	ConfigCmd.AddCommand(ConfigGetCmd)
-
+	ConfigCmd.AddCommand(ConfigCleanCmd)
 }
 
 var ConfigCmd = &cobra.Command{
@@ -26,8 +26,8 @@ var ConfigCmd = &cobra.Command{
 
 var ConfigSetCmd = &cobra.Command{
 	Use:   "set",
-	Short: "进入设置向导",
-	Long:  "进入设置向导",
+	Short: "进入配置设置向导",
+	Long:  "进入配置设置向导",
 	Run: func(cmd *cobra.Command, args []string) {
 		cmdutil.ConfigSet()
 	},
@@ -35,9 +35,18 @@ var ConfigSetCmd = &cobra.Command{
 
 var ConfigGetCmd = &cobra.Command{
 	Use:   "get",
-	Short: "获取当前配置项",
-	Long:  "获取当前配置项",
+	Short: "获取当前配置",
+	Long:  "获取当前配置",
 	Run: func(cmd *cobra.Command, args []string) {
 		cmdutil.ConfigGet()
+	},
+}
+
+var ConfigCleanCmd = &cobra.Command{
+	Use:   "clean",
+	Short: "清除当前配置",
+	Long:  "清除当前配置",
+	Run: func(cmd *cobra.Command, args []string) {
+		cmdutil.ConfigClean()
 	},
 }

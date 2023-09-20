@@ -40,3 +40,13 @@ func ConfigGet() {
 	fmt.Println("制作者邮箱: ", Cyan(config.Contact))
 	fmt.Println("默认镜像源地址: ", Cyan(config.RegistryUrl))
 }
+
+func ConfigClean() {
+	UserHomeDir, _ := os.UserHomeDir()
+	err := os.Remove(UserHomeDir + "/.config/cg/config.yaml")
+	if err != nil {
+		fmt.Println("清除错误: ", err)
+		return
+	}
+	fmt.Println("配置已清除")
+}
