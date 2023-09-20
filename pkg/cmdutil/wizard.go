@@ -107,11 +107,11 @@ func Wizard() {
 		_ = yaml.Unmarshal(data, &config)
 		fmt.Println("检测到配置文件，将使用配置文件中的镜像源")
 		Cyan := color.FgCyan.Render
-		fmt.Println("镜像源地址：" + Cyan(config.RegistryUrl))
+		fmt.Println("镜像源地址：" + Cyan(config.RegistryUrl+global.RegistryNameSpace+"/"))
 		fmt.Println()
 		challengeInfo["base_registry"] = config.RegistryUrl + global.RegistryNameSpace + "/"
 	}
-
+	color.Green.Println("如选择错误，请按 Ctrl+C 终止程序，然后重新执行向导")
 	challengeInfo["type"] = util.SelectOne("请选择您要创建的题目类型", global.ChallengeType)
 	challengeInfo["base_image_name"] = challengeInfo["type"]
 	switch challengeInfo["type"] {
@@ -122,7 +122,14 @@ func Wizard() {
 	case "misc":
 		challengeInfo = WizardSocket(challengeInfo)
 	}
-	challengeInfo["challenge_name"] = util.InputLine("请输入您要创建的题目镜像名称")
+	// 不断获取输入直到有内容
+	for {
+		challengeInfo["challenge_name"] = util.InputLine("请输入您要创建的题目镜像名称")
+		if len(challengeInfo["challenge_name"]) != 0 {
+			break
+		}
+		color.Red.Println("你未输入题目名称，请重新输入")
+	}
 	// 创建
 	Generate(challengeInfo)
 }
