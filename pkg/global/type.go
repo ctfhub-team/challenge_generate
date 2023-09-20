@@ -7,13 +7,13 @@ type Config struct {
 }
 
 type DockerCompsoe struct {
-	Version  int `yaml:"version"`
+	Version  string `yaml:"version"`
 	Services struct {
 		Challenge struct {
-			Build      string   `yaml:"build"`
-			Image      string   `yaml:"image"`
-			Ports      []string `yaml:"ports"`
-			Enviroment []string `yaml:"enviroment"`
+			Build       string   `yaml:"build"`
+			Image       string   `yaml:"image"`
+			Ports       []string `yaml:"ports"`
+			Environment []string `yaml:"environment"`
 		} `yaml:"challenge"`
 	} `yaml:"services"`
 }

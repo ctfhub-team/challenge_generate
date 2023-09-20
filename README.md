@@ -52,7 +52,7 @@ Use "cg new [command] --help" for more information about a command.
 
 ## 测试
 
-测试需要将当前目录切换至含有`docker-compose.yml`文件的目录，一般来说即为题目目录中的`enviroment` 目录，之后执行`docker`子命令按需处理即可
+测试需要将当前目录切换至含有`docker-compose.yml`文件的目录，一般来说即为题目目录中的`environment` 目录，之后执行`docker`子命令按需处理即可
 
 ```bash
 d 测试已完成的镜像
@@ -82,7 +82,7 @@ Use "cg docker [command] --help" for more information about a command.
 ## 环境目录结构
 
 ```
-enviroment
+environment
     src/
     files/
         flag.sh

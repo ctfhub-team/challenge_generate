@@ -41,8 +41,8 @@ func Generate(challengeInfo map[string]string) {
 
 	// 创建文件夹
 	dirTree := []string{
-		"enviroment/src/",
-		"enviroment/files/",
+		"environment/src/",
+		"environment/files/",
 		"writeup/",
 	}
 	for _, path := range dirTree {
@@ -74,7 +74,7 @@ func Generate(challengeInfo map[string]string) {
 	fmt.Println(challengeInfo["challenge_name"] + " 创建成功，请按如下步骤依次操作：")
 	fmt.Println("1. 初始化Git仓库")
 	fmt.Println("2. 编辑 " + challengeInfo["challenge_name"] + "/meta.yml 文件修改题目信息")
-	fmt.Println("3. 进入 " + challengeInfo["challenge_name"] + "/enviroment 目录进行测试")
+	fmt.Println("3. 进入 " + challengeInfo["challenge_name"] + "/environment 目录进行测试")
 	fmt.Println("4. 进入 " + challengeInfo["challenge_name"] + "/writeup 目录补全WP及Exp")
 	fmt.Println("5. 一切完成后推送至Git仓库")
 }

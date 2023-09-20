@@ -51,7 +51,7 @@ func GenerateDockerFile(challengeInfo map[string]string) {
 	}
 	dockerfile += "\n"
 	dockerfile += "EXPOSE " + GetServicePort(challengeInfo["type"]) + "\n"
-	util.WriteFile("enviroment/Dockerfile", dockerfile, 0644)
+	util.WriteFile("environment/Dockerfile", dockerfile, 0644)
 }
 
 /**
@@ -70,16 +70,16 @@ func GenerateDockerCompose(challengeInfo map[string]string) {
 	dockerCompose := global.DockerCompsoe{}
 	_ = yaml.Unmarshal(tpl.DockerCompose, &dockerCompose)
 	// 修改内容
-	dockerCompose.Version = 3
+	dockerCompose.Version = "3"
 	dockerCompose.Services.Challenge.Image = challengeInfo["challenge_name"]
 	dockerCompose.Services.Challenge.Ports = []string{accessPort + ":" + servicePort}
-	dockerCompose.Services.Challenge.Enviroment = []string{
+	dockerCompose.Services.Challenge.Environment = []string{
 		"FLAG=ctfhub{test_flag}",
 		"DOMAIN=test.sandbox.ctfhub.com",
 	}
 	// 写入文件
 	writeData, _ := yaml.Marshal(&dockerCompose)
-	util.WriteFile("enviroment/docker-compose.yml", string(writeData), 0644)
+	util.WriteFile("environment/docker-compose.yml", string(writeData), 0644)
 }
 
 /**
@@ -113,7 +113,7 @@ func GenerateMeta(challengeInfo map[string]string) {
  */
 func GenerateFlag(challengeInfo map[string]string) {
 	if challengeInfo["need_flag"] == "是" {
-		util.WriteFile("enviroment/files/flag.sh", string(tpl.Flag), 0755)
+		util.WriteFile("environment/files/flag.sh", string(tpl.Flag), 0755)
 	}
 }
 
@@ -123,7 +123,7 @@ func GenerateFlag(challengeInfo map[string]string) {
  */
 func GenerateStart(challengeInfo map[string]string) {
 	if challengeInfo["need_start"] == "是" {
-		util.WriteFile("enviroment/files/start.sh", string(tpl.Start), 0755)
+		util.WriteFile("environment/files/start.sh", string(tpl.Start), 0755)
 	}
 }
 
@@ -134,9 +134,9 @@ func GenerateStart(challengeInfo map[string]string) {
 func GenerateDB(challengeInfo map[string]string) {
 	switch challengeInfo["db_type"] {
 	case "mysql":
-		util.WriteFile("enviroment/files/db.sql", string(tpl.DB_SQL), 0644)
+		util.WriteFile("environment/files/db.sql", string(tpl.DB_SQL), 0644)
 	case "mongodb":
-		util.WriteFile("enviroment/files/db.json", string(tpl.DB_JSON), 0644)
+		util.WriteFile("environment/files/db.json", string(tpl.DB_JSON), 0644)
 	}
 }
 
