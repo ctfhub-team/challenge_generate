@@ -24,6 +24,9 @@ jobs:
         check-latest: true
 
     - name: Build
+      env:
+        DRONE_TAG: ${{ github.ref_name }}
+        DRONE_COMMIT_SHA: ${{ github.sha }}
       run: make all
 
     - name: Create Release and Upload Release Asset
