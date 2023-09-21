@@ -1,6 +1,6 @@
 BUILD_ENV := CGO_ENABLED=0
-export BUILD_TIME=`date +%Y-%m-%d`
-export GIT_COMMIT_ID=${DRONE_COMMIT_SHA:0:8}
+export BUILD_TIME=$(shell date +%Y-%m-%d)
+export GIT_COMMIT_ID=$(wordlist 1,9,${DRONE_COMMIT_SHA})
 export VERSION=${DRONE_TAG}
 VAR_INJECT=-X 'util.GitCommitId=${GIT_COMMIT_ID}' -X 'util.BuildTime=${BUILD_TIME}' -X 'util.Version=${DRONE_TAG}'
 LDFLAGS=-v -a -ldflags "-s -w ${VAR_INJECT}" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
