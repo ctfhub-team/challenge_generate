@@ -102,13 +102,13 @@ func Wizard() {
 	if err != nil {
 		fmt.Println("未检测到配置文件，建议先设置默认镜像源")
 		registry := util.SelectOne("请选择您要使用的镜像源", global.Registry)
-		challengeInfo["base_registry"] = registry + global.RegistryNameSpace + "/"
+		challengeInfo["base_registry"] = registry + "/"
 	} else {
 		_ = yaml.Unmarshal(data, &config)
 		fmt.Println("检测到配置文件，将使用配置文件中的镜像源")
-		fmt.Println("镜像源地址：" + color.FgCyan.Render(config.RegistryUrl+global.RegistryNameSpace+"/"))
+		fmt.Println("镜像源地址：" + color.FgCyan.Render(config.RegistryUrl))
 		fmt.Println()
-		challengeInfo["base_registry"] = config.RegistryUrl + global.RegistryNameSpace + "/"
+		challengeInfo["base_registry"] = config.RegistryUrl + "/"
 	}
 	color.Green.Println("如选择错误，请按 Ctrl+C 终止程序，然后重新执行向导")
 	challengeInfo["type"] = util.SelectOne("请选择您要创建的题目类型", global.ChallengeType)
