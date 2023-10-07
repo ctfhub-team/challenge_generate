@@ -9,16 +9,16 @@ var Registry = map[string]string{
 
 // 题目类型
 var ChallengeType = map[string]string{
-	"Web": "web",
-	"Pwn": "pwn",
-	// "Socket": "misc",
+	"Web":    "web",
+	"Pwn":    "pwn",
+	"Socket": "misc",
 }
 
 // 语言类型
 var Language = map[string]string{
-	"PHP":  "php",
-	"HTML": "html",
-	// "Python": "python",
+	"PHP":    "php",
+	"HTML":   "html",
+	"Python": "python",
 	// "NodeJS": "nodejs",
 	// "Java":   "java",
 	// "Ruby":   "ruby",
@@ -28,7 +28,7 @@ var PHPVersion = []string{
 	"5.6", "7.4", "8.0",
 }
 var PythonVersion = []string{
-	"2.7", "3.6",
+	"2.7", "3.11",
 }
 var NodeJSVersion = []string{
 	"12", "14", "16", "18",

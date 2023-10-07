@@ -211,7 +211,6 @@ func WizardSocket(challengeInfo map[string]string) map[string]string {
 	delete(selectLanguage, "HTML")
 	delete(selectLanguage, "PHP")
 	delete(selectLanguage, "Ruby")
-	challengeInfo["pwn_server"] = util.SelectOne("请选择您期望的启动方式", global.PwnServer)
 	challengeInfo["language"] = util.SelectOne("请选择您要使用的语言", selectLanguage)
 	challengeInfo["db"] = util.SelectOne("是否需要数据库", global.DBType)
 	// 判断语言版本
@@ -227,7 +226,6 @@ func WizardSocket(challengeInfo map[string]string) map[string]string {
 	challengeInfo["language_version"] = util.SelectArray("请选择您要使用的版本", languageVersion)
 	// 拼接镜像名称
 	baseImageName := ""
-	baseImageName += "_" + challengeInfo["pwn_server"]
 	if challengeInfo["db"] != "" {
 		baseImageName += "_" + challengeInfo["db"]
 	}
