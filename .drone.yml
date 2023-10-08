@@ -1,16 +1,6 @@
 kind: pipeline
 name: Build
 
-environment:
-  GOPROXY: "https://goproxy.cn,direct"
-  GOPRIVATE: 
-    from_secret: GOPRIVATE
-  GOINSECURE: 
-    from_secret: GOPRIVATE
-  CGO_ENABLED: "0"
-  GOOS: linux
-  GOARCH: amd64
-  GO111MODULE: "on"
 
 steps:
 
@@ -26,6 +16,16 @@ steps:
         
   - name: Build All
     image: golang:1.19-bullseye
+    environment:
+      GOPROXY: "https://goproxy.cn,direct"
+      GOPRIVATE:
+        from_secret: GOPRIVATE
+      GOINSECURE:
+        from_secret: GOPRIVATE
+      CGO_ENABLED: "0"
+      GOOS: linux
+      GOARCH: amd64
+      GO111MODULE: "on"
     commands:
       - make all
 
