@@ -1,0 +1,44 @@
+kind: pipeline
+name: Build
+
+environment:
+  GOPROXY: "https://goproxy.cn,direct"
+  GOPRIVATE: 
+    from_secret: GOPRIVATE
+  GOINSECURE: 
+    from_secret: GOPRIVATE
+  CGO_ENABLED: "0"
+  GOOS: linux
+  GOARCH: amd64
+  GO111MODULE: "on"
+
+steps:
+
+  - name: Sync Github
+    image: appleboy/drone-git-push
+    settings:
+      branch: main
+      remote: "ssh://git@github.com/ctfhub-team/challenge_generate.git"
+      force: false
+      followtags: true
+      ssh_key:
+        from_secret: SYNC_GITHUB_KEY
+        
+  - name: Build All
+    image: golang:1.19-bullseye
+    commands:
+      - make all
+
+  - name: Gitea Release
+    image: plugins/gitea-release
+    when:
+      event:
+        - tag
+    settings:
+      api_key:
+        from_secret: GITEA_API_KEY
+      base_url: 
+        from_secret: GITEA_URL
+      files: build/*
+      prerelease: true
+
