@@ -1,3 +1,7 @@
+## 详细使用说明
+
+https://www.wolai.com/ctfhub/3DvnJJtPbHyyDtVkDaW1yz
+
 ## 要求
 
 所有环境基于amd64构建
