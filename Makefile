@@ -2,24 +2,27 @@ BUILD_ENV := CGO_ENABLED=0
 export BUILD_TIME=$(shell date +%Y-%m-%d)
 export GIT_COMMIT_ID=$(wordlist 1,9,${DRONE_COMMIT_SHA})
 export VERSION=${DRONE_TAG}
-VAR_INJECT=-X 'util.GitCommitId=${GIT_COMMIT_ID}' -X 'util.BuildTime=${BUILD_TIME}' -X 'util.Version=${DRONE_TAG}'
-LDFLAGS=-v -a -ldflags "-s -w ${VAR_INJECT}" -gcflags="all=-trimpath=${PWD}" -asmflags="all=-trimpath=${PWD}"
+export LDFLAGS="\
+	-X 'cg/pkg/util.GitCommitId=${GIT_COMMIT_ID}' \
+	-X 'cg/pkg/util.BuildTime=${BUILD_TIME}' \
+	-X 'cg/pkg/util.Version=${DRONE_TAG}' \
+	"
 
 TARGET_EXEC := cg
 
-.PHONY: all setup build-linux build-osx
+.PHONY: all setup linux osx
 
-all: setup build-linux build-osx finish
+all: setup linux osx finish
 
 setup:
 	mkdir -p build
 
-build-osx:
-	${BUILD_ENV} GOARCH=amd64 GOOS=darwin go build ${LDFLAGS} -trimpath -o build/${TARGET_EXEC}_darwin_amd64
-	${BUILD_ENV} GOARCH=arm64 GOOS=darwin go build ${LDFLAGS} -trimpath -o build/${TARGET_EXEC}_darwin_arm64
+osx:
+	${BUILD_ENV} GOARCH=amd64 GOOS=darwin go build -v -a -ldflags ${LDFLAGS} -o build/${TARGET_EXEC}_darwin_amd64
+	${BUILD_ENV} GOARCH=arm64 GOOS=darwin go build -v -a -ldflags ${LDFLAGS} -o build/${TARGET_EXEC}_darwin_arm64
 
-build-linux:
-	${BUILD_ENV} GOARCH=amd64 GOOS=linux go build ${LDFLAGS} -trimpath -o build/${TARGET_EXEC}_linux_amd64
+linux:
+	${BUILD_ENV} GOARCH=amd64 GOOS=linux go build -v -a -ldflags ${LDFLAGS} -o build/${TARGET_EXEC}_linux_amd64
 
 clean:
 	rm -rf build
