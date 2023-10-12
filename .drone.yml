@@ -27,6 +27,8 @@ steps:
       GOARCH: amd64
       GO111MODULE: "on"
     commands:
+      - sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+      - apt update && apt install -y zip
       - make all
 
   - name: Gitea Release
